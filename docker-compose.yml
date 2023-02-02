@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  app:
+    image: 'hassireen/employee:latest'
+    build:
+      context: .
+    container_name: app
+    restart: always
+    ports:
+      - 8090:8090
+    depends_on:
+      - db    
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5433/employ
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Hassi99@in
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+          
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Hassi99@in
+      - POSTGRES_DB=employ
+    expose:
+      - "5433:5433" 
